@@ -44,3 +44,81 @@ foreach($users20tops as $users20top){
 ;
 ?>
 <!-- ----------------------------exo 4------------------------ -->
+<h1>exercice 4</h1>
+
+<?php
+$request = $db->query('SELECT * FROM cardtypes  LEFT JOIN clients ON cardtypes.id = clients.card WHERE card IS NOT NULL');
+
+$cardtypes = $request->fetchAll();
+ foreach ($cardtypes as $cardtype) {
+    echo '<p>' . $cardtype['lastName'] . $cardtype['firstName'] . '</p>';
+ }
+?>
+
+<!-- -----------------------------------exo 5-------------------------------- -->
+
+<h1>exercice 5</h1>
+
+<?php
+
+$request = $db->query("SELECT * FROM clients WHERE lastName LIKE 'M%' ORDER BY lastName ASC");
+
+$lastNames = $request->fetchAll();
+
+foreach ($lastNames as $lastName) {
+    echo '<p>' . $lastName['lastName'] .'</p>';
+}
+
+?>
+
+<!-- ---------------------------exo 6--------------------------------------------- -->
+
+<!-- Afficher le titre de tous les spectacles ainsi que l'artiste, la date et l'heure. Trier les titres par ordre alphabétique. Afficher les résultat comme ceci : Spectacle par artiste, le date à heure. -->
+
+<h1>exercice 6</h1>
+<?php
+$request = $db->query('SELECT title, performer, date, startTime FROM shows');
+$shows = $request->fetchall();
+
+foreach ($shows as $show) {
+    echo '<p>'.'le tire est : '. $show['title'] . 'la durer est de : '. $show['performer']  . 'la date : '. $show['date'].'l heure est :'.$show['startTime'] . '</p>';
+}
+?>
+<!-- ------------------------------------exo 7------------------------------- -->
+
+<h1>exercice 7</h1>
+<?php
+
+$request = $db->query('SELECT lastName, firstName, birthDate, card, cardNumber FROM clients ');
+
+$fullshows = $request->fetchAll();
+
+
+foreach ($fullshows as $fullshow) {
+
+    // var_dump($fullshow['card']);
+    if ($fullshow['card'] === 1) {
+        echo '<p>'. $fullshow['lastName'].' ' .$fullshow['firstName'].' '.$fullshow['birthDate'].'oui il a une carte de fidelitée n : '. $fullshow['cardNumber']. '</p>';
+    }else {
+        echo '<p>'.'l\'autre'. '</p>';
+    }
+
+}
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
