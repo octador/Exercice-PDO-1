@@ -4,16 +4,16 @@
 $dsn = 'mysql:host=localhost;dbname=colyseum';
 $user = 'root';
 $password = '';
-$db = new PDO($dsn,$user,$password);
+$db = new PDO($dsn, $user, $password);
 
 
-$request = $db->query('SELECT * FROM clients' );
+$request = $db->query('SELECT * FROM clients');
 // var_dump($request); 
 $users = $request->fetchall();
 var_dump($users);
 
-foreach ($users as $user)  {
-    echo '<p>'. $user['lastName'] .'</p>';
+foreach ($users as $user) {
+    echo '<p>' . $user['lastName'] . '</p>';
 }
 
 ?>
@@ -38,10 +38,9 @@ $users20tops = $request->fetchAll();
 
 var_dump($users20tops);
 
-foreach($users20tops as $users20top){
-    echo '<p>'.$users20top['lastName'] .'</p>';
-}
-;
+foreach ($users20tops as $users20top) {
+    echo '<p>' . $users20top['lastName'] . '</p>';
+};
 ?>
 <!-- ----------------------------exo 4------------------------ -->
 <h1>exercice 4</h1>
@@ -50,9 +49,9 @@ foreach($users20tops as $users20top){
 $request = $db->query('SELECT * FROM cardtypes  LEFT JOIN clients ON cardtypes.id = clients.card WHERE card IS NOT NULL');
 
 $cardtypes = $request->fetchAll();
- foreach ($cardtypes as $cardtype) {
+foreach ($cardtypes as $cardtype) {
     echo '<p>' . $cardtype['lastName'] . $cardtype['firstName'] . '</p>';
- }
+}
 ?>
 
 <!-- -----------------------------------exo 5-------------------------------- -->
@@ -66,7 +65,7 @@ $request = $db->query("SELECT * FROM clients WHERE lastName LIKE 'M%' ORDER BY l
 $lastNames = $request->fetchAll();
 
 foreach ($lastNames as $lastName) {
-    echo '<p>' . $lastName['lastName'] .'</p>';
+    echo '<p>' . $lastName['lastName'] . '</p>';
 }
 
 ?>
@@ -81,44 +80,25 @@ $request = $db->query('SELECT title, performer, date, startTime FROM shows');
 $shows = $request->fetchall();
 
 foreach ($shows as $show) {
-    echo '<p>'.'le tire est : '. $show['title'] . 'la durer est de : '. $show['performer']  . 'la date : '. $show['date'].'l heure est :'.$show['startTime'] . '</p>';
+    echo '<p>' . 'le tire est : ' . $show['title'] . 'la durer est de : ' . $show['performer']  . 'la date : ' . $show['date'] . 'l heure est :' . $show['startTime'] . '</p>';
 }
 ?>
 <!-- ------------------------------------exo 7------------------------------- -->
 
 <h1>exercice 7</h1>
 <?php
+$request = $db->query("SELECT * FROM clients LEFT JOIN cards ON clients.cardNumber = cards.cardNumber");
 
-$request = $db->query('SELECT lastName, firstName, birthDate, card, cardNumber FROM clients ');
-
-$fullshows = $request->fetchAll();
+$clients = $request->fetchAll();
 
 
-foreach ($fullshows as $fullshow) {
+foreach ($clients as $client) {
 
-    // var_dump($fullshow['card']);
-    if ($fullshow['card'] === 1) {
-        echo '<p>'. $fullshow['lastName'].' ' .$fullshow['firstName'].' '.$fullshow['birthDate'].'oui il a une carte de fidelitée n : '. $fullshow['cardNumber']. '</p>';
-    }else {
-        echo '<p>'.'l\'autre'. '</p>';
+    if ($client['cardTypesId'] === 1) {
+        echo '<p>' . $client['lastName'] . " " . $client['firstName'] . " " . $client['birthDate'] . "  oui le client a une carte de fidélitée N° : " . " " . $client['cardNumber'] . '</p>';
+    } else {
+        echo '<p>' . $client['lastName'] . " " . $client['firstName'] . " " . $client['birthDate'] . " " . 'n\'a pas de car de fidelitée' . " " . '</p>';
     }
-
 }
 
-
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
