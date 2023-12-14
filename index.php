@@ -6,12 +6,9 @@ $user = 'root';
 $password = '';
 $db = new PDO($dsn, $user, $password);
 
-
 $request = $db->query('SELECT * FROM clients');
-// var_dump($request); 
-$users = $request->fetchall();
-var_dump($users);
 
+$users = $request->fetchall();
 foreach ($users as $user) {
     echo '<p>' . $user['lastName'] . '</p>';
 }
@@ -35,9 +32,6 @@ foreach ($showtypes as $showtype) {
 
 $request = $db->query('SELECT * FROM clients LIMIT 20');
 $users20tops = $request->fetchAll();
-
-var_dump($users20tops);
-
 foreach ($users20tops as $users20top) {
     echo '<p>' . $users20top['lastName'] . '</p>';
 };
@@ -53,7 +47,6 @@ foreach ($cardtypes as $cardtype) {
     echo '<p>' . $cardtype['lastName'] . $cardtype['firstName'] . '</p>';
 }
 ?>
-
 <!-- -----------------------------------exo 5-------------------------------- -->
 
 <h1>exercice 5</h1>
@@ -61,7 +54,6 @@ foreach ($cardtypes as $cardtype) {
 <?php
 
 $request = $db->query("SELECT * FROM clients WHERE lastName LIKE 'M%' ORDER BY lastName ASC");
-
 $lastNames = $request->fetchAll();
 
 foreach ($lastNames as $lastName) {
@@ -69,14 +61,12 @@ foreach ($lastNames as $lastName) {
 }
 
 ?>
-
 <!-- ---------------------------exo 6--------------------------------------------- -->
 
-<!-- Afficher le titre de tous les spectacles ainsi que l'artiste, la date et l'heure. Trier les titres par ordre alphabétique. Afficher les résultat comme ceci : Spectacle par artiste, le date à heure. -->
-
 <h1>exercice 6</h1>
+
 <?php
-$request = $db->query('SELECT title, performer, date, startTime FROM shows');
+$request = $db->query('SELECT title, performer, date, startTime FROM shows ORDER BY title');
 $shows = $request->fetchall();
 
 foreach ($shows as $show) {
@@ -86,11 +76,11 @@ foreach ($shows as $show) {
 <!-- ------------------------------------exo 7------------------------------- -->
 
 <h1>exercice 7</h1>
+
 <?php
 $request = $db->query("SELECT * FROM clients LEFT JOIN cards ON clients.cardNumber = cards.cardNumber");
 
 $clients = $request->fetchAll();
-
 
 foreach ($clients as $client) {
 
